@@ -1,0 +1,15 @@
+{
+  "name": "url-shorter-api",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy --minify",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+  },
+  "dependencies": {
+    "hono": "^4.8.4",
+    "wrangler": "^4.24.3"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250711.0"
+  }
+}
