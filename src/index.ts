@@ -29,7 +29,7 @@ app.post(
   ),
   async (c) => {
     const parsed = new URL(c.req.url)
-    const appURL = `${parsed.protocol}//${parsed.hostname}:${parsed.port}/`
+    const appURL = `${parsed.protocol}//${parsed.hostname}${parsed.port ? `:${parsed.port}` : ''}/`
 
     const { url } = c.req.valid('form')
     try {
