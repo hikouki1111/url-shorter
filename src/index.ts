@@ -1,16 +1,13 @@
-import { Hono } from "hono";
+import { Context, Hono, Next } from "hono";
 import { randomID, fromURL, fromID, parseOrNull } from "./utils";
 import { Panel, renderer, Result } from "./component";
 import { html } from "hono/html";
 import { z } from "@hono/zod-openapi"
 import { zValidator } from '@hono/zod-validator'
+import { WorkersKVStore } from "@hono-rate-limiter/cloudflare";
+import { rateLimiter } from "hono-rate-limiter";
 
-interface Env {
-    DB: D1Database;
-    SECRET: SecretsStoreSecret;
-}
-
-const app = new Hono<{ Bindings: Env }>()
+const app = new Hono<{ Bindings: Cloudflare.Env }>()
 
 app.get("*", renderer)
 
@@ -27,6 +24,19 @@ app.post(
       ).transform((val) => { return parseOrNull(val)!! })
     })
   ),
+  (c: Context, next: Next) => {
+    rateLimiter<{ Bindings: Cloudflare.Env }>({
+      windowMs: 60 * 1000,
+      limit: 20,
+      standardHeaders: "draft-6",
+      keyGenerator: (c) => (
+        c.req.header('x-forwarded-for') || 
+        c.req.header('X-Real-IP') || 
+        c.req.header('CF-Connecting-IP')
+      ) ?? "",
+      store: new WorkersKVStore({ namespace: c.env.CACHE }),
+    })(c, next)
+  },
   async (c) => {
     const parsed = new URL(c.req.url)
     const appURL = `${parsed.protocol}//${parsed.hostname}${parsed.port ? `:${parsed.port}` : ''}/`

@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "url-shorter",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-07-11",
+
+  "kv_namespaces": [
+    {
+      "binding": "CACHE",
+      "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ]
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "url-db",
+      "database_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "secrets_store_secrets": [  
+    {  
+      "store_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",  
+      "binding": "SECRET",
+      "secret_name": "url-db"
+    }  
+  ],
+}
