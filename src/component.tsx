@@ -44,11 +44,18 @@ export const renderer = jsxRenderer(({ children }) => {
   `
 })
 
-export const Result = ({ message, error }: { message: string, error: boolean }) => (
-  <div data-error={error} class="bg-blue-100 bg-opacity-50 data-error:bg-red-50">
-    <p>{message}</p>
-  </div>
-)
+export const Result = ({ message, error }: { message: string, error: boolean }) => {
+  const getColor = () => {
+    if (!error) return "border-blue-500 bg-blue-100"
+    else return "border-red-500 bg-red-100"
+  }
+
+  return(
+    <div class={`border rounded-sm w-64 bg-opacity-50 ${getColor()}`}>
+      <p>{message}</p>
+    </div>
+  )
+}
 
 interface ChangeEvent<T = Element> {
   target: EventTarget & T
@@ -57,7 +64,7 @@ interface ChangeEvent<T = Element> {
 export const Panel = () => {
   return(
     <div class="flex flex-col gap-4">
-      <div id="result" class="border border-blue-500 rounded-sm w-64"></div>
+      <div id="result"></div>
       <form class="flex flex-col gap-4" hx-post="/shorter" hx-target="#result" _="on htmx:afterRequest reset() me">
         <input class="border-2 rounded-md w-64" name="url" type="text" />
         <button class="border-2 rounded-md w-64" type="submit" id="submit-button">Shorten</button>

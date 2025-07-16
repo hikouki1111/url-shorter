@@ -28,9 +28,17 @@ app.post(
     })
   ),
   async (c) => {
-    const { url } = c.req.valid('form')
     const parsed = new URL(c.req.url)
     const appURL = `${parsed.protocol}//${parsed.hostname}:${parsed.port}/`
+
+    const { url } = c.req.valid('form')
+    try {
+      const res = await fetch(url)
+      if (!res.ok)
+        return c.html(Result({message: "Invalid URL", error: true}), 200)
+    } catch {
+      return c.html(Result({message: "Invalid URL", error: true}), 200)
+    }
 
     const encoded = encodeURI(url)
     const result = await fromURL(c.env.DB, encoded)
