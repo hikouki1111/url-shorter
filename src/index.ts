@@ -24,8 +24,8 @@ app.post(
       ).transform((val) => { return parseOrNull(val)!! })
     })
   ),
-  (c: Context, next: Next) => {
-    rateLimiter<{ Bindings: Cloudflare.Env }>({
+  async (c: Context, next: Next) => {
+    await rateLimiter<{ Bindings: Cloudflare.Env }>({
       windowMs: 60 * 1000,
       limit: 20,
       standardHeaders: "draft-6",
