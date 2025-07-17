@@ -11,12 +11,12 @@ export const renderer = jsxRenderer(({ children }) => {
         <meta name="description" content="Shorten your URL">
         <meta name="keywords" content="x.gd, url短縮, url-shorter, tinyurl, url短縮サービス, url短縮ツール">
         <meta name="format-detection" content="telephone=no,email=no,address=no">
-        <link rel="canonical" href="https://omw.rest">
+        <link rel="canonical" href="https://0cu.icu">
         <link rel="icon" href="https://raw.githubusercontent.com/hikouki1111/url-shorter/refs/heads/image/icon.png">
         <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/hikouki1111/url-shorter/refs/heads/image/icon.png">
 
         <!-- OGP -->
-        <meta property="og:url" content="https://omw.rest">
+        <meta property="og:url" content="https://0cu.icu">
         <meta property="og:type" content="website">
         <meta property="og:title" content="URL Shorter">
         <meta property="og:description" content="Shorten your URL">
