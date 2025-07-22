@@ -27,7 +27,7 @@ app.post(
   async (c: Context, next: Next) => {
     await rateLimiter<{ Bindings: Cloudflare.Env }>({
       windowMs: 60*4 * 1000,
-      limit: 20,
+      limit: 10,
       standardHeaders: "draft-6",
       keyGenerator: (c) => (
         c.req.header('x-forwarded-for') || 

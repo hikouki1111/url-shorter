@@ -66,7 +66,7 @@ export const Panel = () => {
     <div class="flex flex-col gap-4">
       <div id="result"></div>
       <form class="flex flex-col gap-4" hx-post="/shorter" hx-target="#result" _="on htmx:afterRequest reset() me">
-        <input class="border-2 rounded-md w-64" name="url" type="text" />
+        <input class="border-2 rounded-md w-64" name="url" type="url" required />
         <button class="border-2 rounded-md w-64" type="submit" id="submit-button">Shorten</button>
       </form>
     </div>
